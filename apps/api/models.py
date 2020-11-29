@@ -1,6 +1,6 @@
 from django.db import models
 from cloudinary.models import CloudinaryField
-from cloudinary.uploader import upload_image as cloudinary_upload
+from cloudinary.uploader import upload
 from django.utils import timezone
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 
@@ -42,10 +42,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=255)
     username = models.CharField(max_length=255, unique=True)
     email = models.EmailField(max_length=255, unique=True)
-    # passward = models.CharField()
     profile_pic = models.URLField(
         default="https://res.cloudinary.com/victormainak/image/upload/v1606634881/icons8-male-user-100_zratap.png")
     bio = models.TextField(blank=True)
+    website = models.URLField(null=True)
+    social_media = models.JSONField(null=True)
     date_joined = models.CharField(max_length=255, default=timezone.now)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
@@ -60,10 +61,13 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def upload_profile_pic(self, file):
         try:
-            upload = cloudinary_upload(file)
-            link = upload.url
-            self.profile_pic = link
+            link = upload(file)
+            print('CLOUDINARY URL: ', link.get('url'))
+            self.profile_pic = link.get('url')
             self.save()
+
+            details = {'public_id': link.get('public_id'), 'url':link.get('url')}
+            return details
         except Exception as e:
             print("Cloudinary Error: ", e)
 
@@ -79,10 +83,14 @@ class Project(models.Model):
 
     def upload_landing_page(self, file):
         try:
-            upload = cloudinary_upload(file)
-            link = upload.url
-            self.landing_page_image = link
+            link = upload(file)
+            print('CLOUDINARY URL: ', link.get('url'))
+            self.landing_page_image = link.get('url')
             self.save()
+
+            details = {'public_id': link.get(
+                'public_id'), 'url': link.get('url')}
+            return details
         except Exception as e:
             print("Cloudinary Error: ", e)
 
