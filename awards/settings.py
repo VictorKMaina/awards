@@ -26,23 +26,25 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Initial setup settings
 ENV_FILE = '.env'
 SECRET_KEY = config('SECRET_KEY')
-DEBUG = config('DEBUG', default = False, cast=bool)
+DEBUG = config('DEBUG', default=False, cast=bool)
 MODE = config('MODE')
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast = Csv())
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 
 if MODE == 'dev':
     DATABASES = {
-        'ENGINE':'django.db.backends.postgresql_psycopg2',
-        'NAME':config('DB_NAME'),
-        'USER':config('DB_USER'),
-        'PASSWORD':config('DB_PASSWORD'),
-        'HOST':config('DB_HOST'),
-        'PORT':''
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': config('DB_NAME'),
+            'USER': config('DB_USER'),
+            'PASSWORD': config('DB_PASSWORD'),
+            'HOST': config('DB_HOST'),
+            'PORT': '',
+        }
     }
 else:
     DATABASES = {
-        'default':dj_database_url.config(default=config('DATABASE_URL'), conn_max_age=500)
+        'default': dj_database_url.config(default=config('DATABASE_URL'), conn_max_age=500)
     }
 
 
@@ -55,7 +57,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'apps.api.apps'
+    'apps.api',
+    'apps.main',
 ]
 
 MIDDLEWARE = [
@@ -131,7 +134,7 @@ STATICFILES_DIR = [
 ]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL='/media/'
+MEDIA_URL = '/media/'
 
 # Heroku settings
 django_heroku.settings(locals())
@@ -139,9 +142,9 @@ django_heroku.settings(locals())
 
 # Cloudinary settings
 cloudinary.config(
-    cloud_name = config('CLOUD_NAME'),
-    api_key = config('CLOUDINARY_API_KEY'),
-    api_secret = config('CLOUDINARY_API_SECRET')
+    cloud_name=config('CLOUD_NAME'),
+    api_key=config('CLOUDINARY_API_KEY'),
+    api_secret=config('CLOUDINARY_API_SECRET')
 )
 
 # Sendgrid Settings
@@ -154,3 +157,6 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     )
 }
+
+# Custom user model settings
+AUTH_USER_MODEL = 'api.User'
