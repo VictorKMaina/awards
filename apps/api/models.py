@@ -74,12 +74,12 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class Project(models.Model):
     title = models.CharField(max_length=255)
-    landing_page_image = models.URLField()
-    description = models.TextField()
-    site_url = models.URLField(
+    landing_page_image = models.URLField(
         default='https://res.cloudinary.com/victormainak/image/upload/v1606635375/default_image_01_x3tuoe.png')
+    description = models.TextField()
+    site_url = models.URLField()
     average_rating = models.IntegerField(null=True)
-    User = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def upload_landing_page(self, file):
         try:
@@ -94,9 +94,10 @@ class Project(models.Model):
         except Exception as e:
             print("Cloudinary Error: ", e)
 
-
 class Review(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    rating = models.IntegerField(null=True)
+    design = models.IntegerField(null=True)
+    usability = models.IntegerField(null=True)
+    content = models.IntegerField(null=True)
     comment = models.TextField(blank=True)

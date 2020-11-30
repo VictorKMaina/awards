@@ -7,7 +7,7 @@
 <!-- End of document -->
 ### External Links
 
-1. [ER Diagram | Google Drive](https://drive.google.com/file/d/1oXx5zfCEDyfBOzLABG1ckgcbLIpAUGrg/view?usp=sharing)
+1. [ER Diagram | Google Drive](https://drive.google.com/file/d/1Zy8Uy7HDKKdiol4ryDMCAEBP7PEjcXi0/view?usp=sharing)
 2. [Wireframe | Figma]()
 3. [Awards | Deployed on Heroku]()
 
