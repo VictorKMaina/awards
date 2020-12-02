@@ -1,0 +1,7 @@
+<h2>Hi {{user.first_name}} {{user.last_name}},</h2>
+
+<p>Thank you for joining Awards. Please click the link below to activate your account.</p>
+
+<p>
+<a href="http://{{domain}}{% url 'activation' uid token %}">http://{{domain}}{% url 'activation' uid token %}</a>
+</p>
