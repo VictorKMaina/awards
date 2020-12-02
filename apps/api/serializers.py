@@ -7,7 +7,8 @@ class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'email', 'password', 'is_superuser', 'is_staff', 'is_active']
+        fields='__all__'
+
     def create(self, validated_data):
         password = validated_data.get('password')
         user = User(**validated_data)
@@ -19,3 +20,4 @@ class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
         fields = '__all__'
+        # exclude = ['user']
