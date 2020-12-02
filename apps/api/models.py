@@ -78,8 +78,19 @@ class Project(models.Model):
         default='https://res.cloudinary.com/victormainak/image/upload/v1606635375/default_image_01_x3tuoe.png')
     description = models.TextField()
     site_url = models.URLField()
-    average_rating = models.IntegerField(null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    @property
+    def average_rating(self):
+        reviews = Review.find_by_project(self)
+        average_rating = 0
+        
+        for review in reviews:
+            review_average = review.design + review.usability + review.content
+            average_rating += review_average
+        average_rating = average_rating/len(reviews)
+
+        return average_rating
 
     def upload_landing_page(self, file):
         try:
@@ -94,6 +105,22 @@ class Project(models.Model):
         except Exception as e:
             print("Cloudinary Error: ", e)
 
+    @classmethod
+    def find_by_id(cls, id):
+        """
+        Returns single instance
+        """
+        project = cls.objects.filter(id = id).first()
+        return project
+    
+    @classmethod
+    def find_by_user(cls, user):
+        """
+        Returns queryset by user
+        """
+        projects = cls.objects.filter(user = user).all()
+        return projects
+
 class Review(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -101,3 +128,11 @@ class Review(models.Model):
     usability = models.IntegerField(null=True)
     content = models.IntegerField(null=True)
     comment = models.TextField(blank=True)
+
+    @classmethod
+    def find_by_project(cls, project):
+        """
+        Returns queryset of reviews by project
+        """
+        reviews = Review.objects.filter(project = project).all()
+        return reviews
