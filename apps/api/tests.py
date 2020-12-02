@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.contrib.auth import get_user_model
 from .models import UserManager, Project
 from cloudinary.uploader import destroy
+from apps.api.models import Review
 
 User = get_user_model()
 
@@ -104,7 +105,7 @@ class ProjectTest(TestCase):
             'Dribble': 'Dribble link',
         })
 
-        self.new_project = Project.objects.create(title = "New Project", description = 'This is a new project.', site_url = "https://www.example.com", average_rating=8, user = self.new_user)
+        self.new_project = Project.objects.create(title = "New Project", description = 'This is a new project.', site_url = "https://www.example.com", user = self.new_user)
 
     def tearDown(self):
         """
@@ -139,7 +140,78 @@ class ProjectTest(TestCase):
 
         destroy(details.get('public_id'))
 
-class Review(TestCase):
+    def test_average_rating(self):
+        """
+        Test case to see if average rating property is set by number of reviews
+        """
+        self.new_project.save()
+
+        review1 = Review.objects.create(project = self.new_project, user = self.new_user, design = 8, usability = 5, content = 9, comment = 'This is a nice website.')
+
+        review2 = Review.objects.create(project = self.new_project, user = self.new_user, design = 6, usability = 5, content = 3, comment = 'This is a nice website.')
+
+        self.assertEqual(self.new_project.average_rating, 6.0)
+
+
+    def test_find_by_id(self):
+        """
+        Test case to check id class method project instance
+        """
+        self.new_project.save()
+        project = Project.find_by_id(self.new_project.id)
+        self.assertEqual(project, self.new_project)
+
+    def test_find_by_user(self):
+        """
+        Test case to ckeck if class method returns queryset of projects by user
+        """
+        self.new_project.save()
+
+        projects = Project.find_by_user(self.new_user)
+        self.assertTrue(len(projects) > 0)
+
+class ReviewTest(TestCase):
     """
     Class for testing Review model
     """
+    def setUp(self):
+        """
+        Runs before each test case
+        """
+        self.new_user = User.objects.create_user(first_name='John', last_name='Doe', username='john_doe', email='johndoe@example.com', password='test_password')
+
+        self.new_project = Project.objects.create(
+            title="New Project", description='This is a new project.', site_url="https://www.example.com", user=self.new_user)
+
+        self.new_review = Review.objects.create(project = self.new_project, user = self.new_user, design = 5, usability = 6, content = 7, comment="This is a nice website.")
+
+    def tearDown(self):
+        """
+        Runs after each test case
+        """
+        User.objects.all().delete()
+        Project.objects.all().delete()
+        Review.objects.all().delete()
+
+    def test_instance(self):
+        """
+        Test is self.new_review is instance of Review
+        """
+        self.assertIsInstance(self.new_review, Review)
+
+    def test_database(self):
+        """
+        Test to check if object is being added to database with proper properties
+        """
+        review = Review(project=self.new_project, user=self.new_user, design=7, usability=6, content=5, comment="This is a nice website.")
+        review.save()
+        reviews = Review.objects.all()
+
+        self.assertTrue(len(reviews) > 0)
+
+    def test_find_by_project(self):
+        """
+        Test case to  see if class method returs queryset of reviews by project
+        """
+        reviews = Review.find_by_project(self.new_project)
+        self.assertTrue(len(reviews) > 0)

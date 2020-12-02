@@ -84,13 +84,14 @@ class Project(models.Model):
     def average_rating(self):
         reviews = Review.find_by_project(self)
         average_rating = 0
-        
+
         for review in reviews:
-            review_average = review.design + review.usability + review.content
+            review_average = (review.design + review.usability + review.content)/3
             average_rating += review_average
+
         average_rating = average_rating/len(reviews)
 
-        return average_rating
+        return round(average_rating, 2)
 
     def upload_landing_page(self, file):
         try:
