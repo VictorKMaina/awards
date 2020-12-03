@@ -8,6 +8,13 @@ body, html {
 div.page-container {
     max-width: 1340px;
     margin: auto;
+    padding: 0 10px;
+}
+
+nav.navbar {
+    margin-right: -13px;
+    margin-left: -13px;
+    margin-bottom: 30px;
 }
 
 [alt='logo']{
@@ -32,9 +39,36 @@ input.form-control {
     color: #282828;
 }
 
+.btn {
+    border-radius: 5px;
+}
+
 .btn-pink {
     background: #DE3163;
     font-weight: 600;
     color: white;
-    border-radius: 5px;
+}
+
+.btn-pink-white {
+    color: #DE3163;
+    font-weight: 600;
+    background: white;
+    border: 2px solid white;
+}
+.btn-pink-white:hover {
+    background: #DE3163;
+    font-weight: 600;
+    color: white;
+    border: 2px solid #DE3163;
+}
+.btn-outline-white {
+    font-weight: 600;
+    color: white;
+    background: none;
+    border: 2px solid white;
+}
+.btn-outline-white:hover {
+    color: #282828;
+    font-weight: 600;
+    background: white;
 }
