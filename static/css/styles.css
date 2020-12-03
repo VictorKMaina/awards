@@ -29,7 +29,7 @@ nav.navbar {
     width: auto;
 }
 
-input.form-control {
+input.form-control, textarea.form-control{
     background: #E8E8E8;
     color:#8B8B8B;
     outline: none;
@@ -79,3 +79,10 @@ input.form-control {
     font-weight: 600;
     background: white;
 }
+
+.title {
+        font-size: 1.1rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        margin-bottom: 30px;
+    }

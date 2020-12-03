@@ -36,14 +36,21 @@
         background-color: grey;
         border-radius: 100%; margin-right: 10px;
     }
+    @media only screen and (max-width: 460px) {
+        div.site-of-the-day div#footer{
+            flex-direction: column-reverse;
+            justify-content: start;
+        }
+        
+    }
 </style>
 {% endblock styles %}
 
 {% block content %}
 <div class="site-of-the-day d-flex align-items-start flex-column">
     <div id="title" class="mb-auto">Featured</div>
-    <div id='footer' class="d-flex w-100 justify-content-between align-items-end">
-        <div class="">
+    <div class="d-flex w-100 justify-content-between align-items-end" id='footer'>
+        <div>
             <a href="#">
                 <button class="btn btn-pink-white mr-3">Visit Site</button>
             </a>
@@ -58,7 +65,7 @@
     </div>
 </div>
 <div id="projects">
-    <div id='title'>projects</div>
+    <div class='title'>projects</div>
     <div class="row">
         <div class="project col-md-6 col-lg-4">
             <a href=""><div class="site-image"></div></a>

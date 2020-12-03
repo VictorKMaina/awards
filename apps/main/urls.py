@@ -4,7 +4,7 @@ from django.urls import path, re_path
 
 urlpatterns = [
     path('', views.index, name="index"),
-    path('project/<int:id>/', views.single_project, name='single_project'),
+    path('project/<int:project_id>/', views.single_project, name='single_project'),
     path('search/', views.search_projects, name='search_projects'),
     path('project/new/', views.create_project, name='create_project'),
     path('profile/<str:username>/', views.profile, name='profile'),

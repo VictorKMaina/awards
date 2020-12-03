@@ -11,7 +11,7 @@ def index(request):
     ctx = {}
     return render(request, 'main/index.html', ctx)
 
-def single_project(request):
+def single_project(request, project_id):
     ctx = {}
     return render(request, 'main/single_project.html', ctx)
 

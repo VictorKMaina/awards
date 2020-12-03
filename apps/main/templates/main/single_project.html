@@ -1,0 +1,137 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block styles %}
+{{ block.super }}
+<style>
+    div.jumbotron {
+        background-color: grey;
+        border-radius: 10px;
+        height: 450px;
+        color: white;
+        margin-bottom: 70px;
+    }
+
+    .small {
+        font-weight: 800;
+    }
+
+    div.col {
+        padding: 10px 30px;
+    }
+
+    div#ratings img.icon {
+        width: 20px;
+    }
+
+    div#ratings h3 {
+        font-size: 2.5rem;
+        font-weight: 600;
+        margin-bottom: 0;
+        margin-right: 7px;
+    }
+
+    .input-group-prepend span {
+        width: 80px;
+    }
+</style>
+{% endblock styles %}
+
+{% block content %}
+<div class="jumbotron d-flex justify-content-center align-items-center">
+    <div>
+        <div class="m-auto" style="width: fit-content;">
+            <div id="title" class="h1 font-weight-bold text-left">Project Name</div>
+            <div id="user">by <span class="font-weight-bold">User</span></div>
+        </div>
+
+        <div id="ratings" class="row mt-5">
+            <div class="col d-flex align-items-center">
+                <h2 class="mr-2">8</h2>
+                <div>
+                    <img src="{% static 'images/design.svg' %}" alt="" class="icon">
+                    <p class="small text-uppercase m-0 mt-1">design</p>
+                </div>
+            </div>
+            <div class="col d-flex align-items-center">
+                <h2 class="mr-2">8</h2>
+                <div>
+                    <img src="{% static 'images/usability.svg' %}" alt="" class="icon">
+                    <p class="small text-uppercase m-0 mt-1">usability</p>
+                </div>
+            </div>
+            <div class="col d-flex align-items-center">
+                <h2 class="mr-2">8</h2>
+                <div>
+                    <img src="{% static 'images/content.svg' %}" alt="" class="icon">
+                    <p class="small text-uppercase m-0 mt-1">content</p>
+                </div>
+            </div>
+            <div class="col text-center">
+                <h2 class="font-weight-bold">8.0</h2>
+                <div class="small p-0 m-0 text-uppercase">average</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-7">
+        <div class='title mb-2'>description</div>
+        <div class="text-justify">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore
+            magna
+            aliqua. Vestibulum sed arcu non odio euismod. Tincidunt vitae semper quis lectus nulla at volutpat.
+            Consequat
+            semper
+            viverra nam libero justo laoreet sit amet cursus. Augue neque gravida in fermentum. Sed enim ut sem viverra
+            aliquet
+            eget. Felis eget nunc lobortis mattis aliquam. Cum sociis natoque penatibus et magnis dis. Ac turpis egestas
+            sed
+            tempus
+            urna. Eget nulla facilisi etiam dignissim diam quis enim lobortis scelerisque. Sit amet consectetur
+            adipiscing
+            elit
+            duis
+            tristique. Consequat nisl vel pretium lectus quam. At volutpat diam ut venenatis tellus in metus. Faucibus
+            turpis in
+            eu
+            mi bibendum.
+        </div>
+        {% include 'main/comments.html' %}
+    </div>
+    <div class="col-md-5 mt-5 mt-md-0">
+        <div class="title text-center mb-2">make a review</div>
+        <form class="form-group" action="">
+
+            <div class="input-group flex-nowrap mb-4">
+                <div class="input-group-prepend"><span class="input-group-text bg-transparent text-capitalize"
+                        id="addon-wrapping">design</span></div>
+                <input type="number" class="form-control" placeholder="Rate the design from 1 to 10" aria-label="design"
+                    aria-describedby="addon-wrapping">
+            </div>
+
+            <div class="input-group flex-nowrap mb-4">
+                <div class="input-group-prepend"><span class="input-group-text bg-transparent text-capitalize"
+                        id="addon-wrapping">usability</span></div>
+                <input type="number" class="form-control" placeholder="Rate the usability from 1 to 10"
+                    aria-label="usability" aria-describedby="addon-wrapping">
+            </div>
+
+            <div class="input-group flex-nowrap mb-4">
+                <div class="input-group-prepend"><span class="input-group-text bg-transparent text-capitalize"
+                        id="addon-wrapping">content</span></div>
+                <input type="number" class="form-control" placeholder="Rate the content from 1 to 10"
+                    aria-label="content" aria-describedby="addon-wrapping">
+            </div>
+
+            <div>
+                <textarea name="comment" id="comment" class="form-control mb-4" rows="5" placeholder="Write a comment"></textarea>
+                
+                <button type="submit" class="btn btn-pink w-100 mx-auto">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock content %}
