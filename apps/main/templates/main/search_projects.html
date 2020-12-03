@@ -1,0 +1,68 @@
+{% extends "main/base.html" %}
+
+{% block styles %}
+{{ block.super }}
+<style>
+    div.site-of-the-day {
+        background-color: grey;
+        height: 450px;
+        width: 100%;
+        border-radius: 10px;
+        padding: 40px;
+        margin-bottom: 70px;
+    }
+
+    div.site-of-the-day div#title {
+        font-weight: 800;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        color: white;
+    }
+    div#projects div#title {
+        font-size: 1.1rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        margin-bottom: 30px;
+    }
+    div.project div.site-image{
+        height: 250px;
+        background-color: grey;
+        border-radius: 10px;
+        margin-bottom: 15px;
+    }
+    div.project div.profile-pic{
+        width: 30px;
+        height: 30px;
+        background-color: grey;
+        border-radius: 100%; margin-right: 10px;
+    }
+    @media only screen and (max-width: 460px) {
+        div.site-of-the-day div#footer{
+            flex-direction: column-reverse;
+            justify-content: start;
+        }
+        
+    }
+</style>
+{% endblock styles %}
+
+{% block content %}
+<div id="projects">
+    <div class='title'>projects</div>
+    <div class="row">
+        {% for project in '12345678'|make_list %}
+        <div class="project col-sm-6 col-md-6 col-lg-4 mb-5">
+            <a href=""><div class="site-image"></div></a>
+            <div class="details d-flex align-items-center">
+                <div class="profile-pic"></div>
+                <a href="">
+                    <div class="user"> by <span class="font-weight-bold">User's Name</span></div>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+        
+
+    </div>
+</div>
+{% endblock content %}
