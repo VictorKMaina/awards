@@ -5,10 +5,11 @@
 <style>
     div.site-of-the-day {
         background-color: grey;
-        height: 400px;
+        height: 450px;
         width: 100%;
         border-radius: 10px;
         padding: 40px;
+        margin-bottom: 70px;
     }
 
     div.site-of-the-day div#title {
@@ -17,12 +18,30 @@
         text-transform: uppercase;
         color: white;
     }
+    div#projects div#title {
+        font-size: 1.1rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        margin-bottom: 30px;
+    }
+    div.project div.site-image{
+        height: 250px;
+        background-color: grey;
+        border-radius: 10px;
+        margin-bottom: 15px;
+    }
+    div.project div.profile-pic{
+        width: 30px;
+        height: 30px;
+        background-color: grey;
+        border-radius: 100%; margin-right: 10px;
+    }
 </style>
 {% endblock styles %}
 
 {% block content %}
 <div class="site-of-the-day d-flex align-items-start flex-column">
-    <div id="title" class="mb-auto">Site of the day</div>
+    <div id="title" class="mb-auto">Featured</div>
     <div id='footer' class="d-flex w-100 justify-content-between align-items-end">
         <div class="">
             <a href="#">
@@ -35,6 +54,20 @@
         <div class="text-white text-right">
             <h2 class="font-weight-bold">Title</h2>
             <p>by Developer's Name</p>
+        </div>
+    </div>
+</div>
+<div id="projects">
+    <div id='title'>projects</div>
+    <div class="row">
+        <div class="project col-md-6 col-lg-4">
+            <a href=""><div class="site-image"></div></a>
+            <div class="details d-flex align-items-center">
+                <div class="profile-pic"></div>
+                <a href="">
+                    <div class="user"> by <span class="font-weight-bold">User's Name</span></div>
+                </a>
+            </div>
         </div>
     </div>
 </div>
