@@ -107,8 +107,8 @@ def loginUser(request):
                 requests.post(url, form.data)
                 login(request, user)
                 return redirect('/')
-            else:
-                errors.append("Incorrect username or password.")
+        else:
+            errors.append("Incorrect username or password.")
 
     form = LoginForm()
     ctx = {"form": form, "errors": errors}
