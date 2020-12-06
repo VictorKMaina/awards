@@ -16,9 +16,6 @@
             </li>
             {% if user.is_authenticated %}
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'profile' user.username %}">profile</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" href="{% url 'create_project' %}">add a project</a>
             </li>
             <li class="nav-item">
