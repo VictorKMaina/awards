@@ -67,15 +67,21 @@
 <div id="projects">
     <div class='title'>projects</div>
     <div class="row">
+        
+        {% for project in projects %}
         <div class="project col-md-6 col-lg-4">
-            <a href=""><div class="site-image"></div></a>
+            <a href=""><div class="site-image" style="background: url({{project.landing_page_image}}); background-size: cover; background-position: center;"></div></a>
             <div class="details d-flex align-items-center">
-                <div class="profile-pic"></div>
+                <div class="profile-pic" style="background: url({{project.user.profile_pic}}); background-size: cover; background-position: center;"></div>
                 <a href="">
-                    <div class="user"> by <span class="font-weight-bold">User's Name</span></div>
+                    <div class="user"> by <span class="font-weight-bold">project.user.username</span></div>
                 </a>
             </div>
         </div>
+        {% empty %}
+        <div class="col font-weight-bold text-muted">No new projects</div>
+        {% endfor %}
+
     </div>
 </div>
 {% endblock content %}

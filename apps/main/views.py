@@ -10,16 +10,20 @@ from ..api.emails.token import activation_token
 from .forms import NewProjectForm, SignupForm, LoginForm
 import requests
 from django.contrib.sites.shortcuts import get_current_site
+from rest_framework.authtoken.models import Token
+from apps.api.models import Project
 
 User = get_user_model()
 
-def get_token():
-    requests.post
+def get_token(id):
+    token = Token.objects.filter(user_id = id)
 
 def index(request):
     user = request.user
+    projects = Project.objects.all()
+    featured = None
     
-    ctx = {}
+    ctx = {"projects":projects}
     return render(request, 'main/index.html', ctx)
 
 
@@ -39,7 +43,7 @@ def create_project(request):
     return render(request, 'main/new_project.html', ctx)
 
 
-def profile(request):
+def profile(request, username):
     # Check is profile belongs to logged in user to enable editing functionality
     ctx = {}
     return render(request, 'main/profile.html', ctx)
