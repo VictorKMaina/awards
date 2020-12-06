@@ -14,7 +14,7 @@
 </style>
 {% endblock styles %}
 {% block content %}
-<form action="api/users/" method="POST">
+<form action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <h2 class="font-weight-bold mb-5">Add new project</h2>
     {% for field in form.visible_fields %}

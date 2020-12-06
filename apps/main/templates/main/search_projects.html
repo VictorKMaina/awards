@@ -3,21 +3,6 @@
 {% block styles %}
 {{ block.super }}
 <style>
-    div.site-of-the-day {
-        background-color: grey;
-        height: 450px;
-        width: 100%;
-        border-radius: 10px;
-        padding: 40px;
-        margin-bottom: 70px;
-    }
-
-    div.site-of-the-day div#title {
-        font-weight: 800;
-        font-size: 0.9rem;
-        text-transform: uppercase;
-        color: white;
-    }
     div#projects div#title {
         font-size: 1.1rem;
         font-weight: 800;
@@ -50,13 +35,13 @@
 <div id="projects">
     <div class='title'>projects</div>
     <div class="row">
-        {% for project in '12345678'|make_list %}
+        {% for project in projects %}
         <div class="project col-sm-6 col-md-6 col-lg-4 mb-5">
-            <a href=""><div class="site-image"></div></a>
+            <a href=""><div class="site-image" style="background: url({{project.landing_page_image}}); background-size: cover;"></div></a>
             <div class="details d-flex align-items-center">
-                <div class="profile-pic"></div>
+                <div class="profile-pic" style="background: url({{project.user.profile_pic}}); background-size: cover;"></div>
                 <a href="">
-                    <div class="user"> by <span class="font-weight-bold">User's Name</span></div>
+                    <div class="user"> by <span class="font-weight-bold">{{project.user.username}}</span></div>
                 </a>
             </div>
         </div>

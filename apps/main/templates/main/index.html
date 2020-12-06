@@ -4,12 +4,31 @@
 {{ block.super }}
 <style>
     div.site-of-the-day {
-        background-color: grey;
+        background-color: rgba(0, 0, 0, 0.6);
         height: 450px;
         width: 100%;
         border-radius: 10px;
         padding: 40px;
         margin-bottom: 70px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    div.site-of-the-day:before {
+        background-color: black;
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -5;
+        opacity: 0.6;
+        background-image: url('{{featured.landing_page_image}}');
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        background-size: cover;
     }
 
     div.site-of-the-day div#title {
@@ -18,63 +37,86 @@
         text-transform: uppercase;
         color: white;
     }
+
     div#projects div#title {
         font-size: 1.1rem;
         font-weight: 800;
         text-transform: uppercase;
         margin-bottom: 30px;
     }
-    div.project div.site-image{
+
+    div.project div.site-image {
         height: 250px;
         background-color: grey;
         border-radius: 10px;
         margin-bottom: 15px;
     }
-    div.project div.profile-pic{
+
+    div.project div.profile-pic {
         width: 30px;
         height: 30px;
         background-color: grey;
-        border-radius: 100%; margin-right: 10px;
+        border-radius: 100%;
+        margin-right: 10px;
     }
+    div.project p.project-title {
+        font-size: 1.3rem;
+
+    }
+
     @media only screen and (max-width: 460px) {
-        div.site-of-the-day div#footer{
+        div.site-of-the-day div#footer {
             flex-direction: column-reverse;
             justify-content: start;
         }
-        
+
     }
 </style>
 {% endblock styles %}
 
 {% block content %}
+{% if featured %}
 <div class="site-of-the-day d-flex align-items-start flex-column">
+    <div class="position-relative">
+        <div class="w-100 h-100" id='featured-bg'></div>
+    </div>
     <div id="title" class="mb-auto">Featured</div>
     <div class="d-flex w-100 justify-content-between align-items-end" id='footer'>
         <div>
-            <a href="#">
+            <a href="{{featured.site_url}}">
                 <button class="btn btn-pink-white mr-3">Visit Site</button>
             </a>
-            <a href="#">
+            <a href="{% url 'single_project' featured.id %}">
                 <button class="btn btn-outline-white">View Details</button>
             </a>
         </div>
         <div class="text-white text-right">
-            <h2 class="font-weight-bold">Title</h2>
-            <p>by Developer's Name</p>
+            <h2 class="font-weight-bold">{{featured.title}}</h2>
+            <p>by {{featured.user.username}}</p>
         </div>
     </div>
 </div>
+{% else %}
+
+{% endif %}
 <div id="projects">
     <div class='title'>projects</div>
     <div class="row">
-        
+
         {% for project in projects %}
-        <div class="project col-md-6 col-lg-4">
-            <a href=""><div class="site-image" style="background: url({{project.landing_page_image}}); background-size: cover; background-position: center;"></div></a>
+        <div class="project col-sm-6 col-md-6 col-lg-4 mb-4">
+            <a href="{% url 'single_project' project.id %}">
+                <div class="site-image"
+                    style="background: url({{project.landing_page_image}}); background-size: cover; background-position: center;">
+                </div>
+                <p class="my-3 project-title">{{project.title}}</p>
+            </a>
             <div class="details d-flex align-items-center">
-                <div class="profile-pic" style="background: url({{project.user.profile_pic}}); background-size: cover; background-position: center;"></div>
-                <a href="">
-                    <div class="user"> by <span class="font-weight-bold">project.user.username</span></div>
+                <div class="profile-pic"
+                    style="background: url({{project.user.profile_pic}}); background-size: cover; background-position: center;">
+                </div>
+                <a href="{% url 'profile' project.user.username %}">
+                    <div class="user"> by <span class="font-weight-bold">{{project.user.username}}</span></div>
                 </a>
             </div>
         </div>

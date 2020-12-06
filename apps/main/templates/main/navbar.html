@@ -14,10 +14,10 @@
             <li class="nav-item">
                 <a class="nav-link" href="/">home</a>
             </li>
+            {% if user.is_authenticated %}
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'profile' user.username %}">profile</a>
             </li>
-            {% if user.is_authenticated %}
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'create_project' %}">add a project</a>
             </li>
@@ -33,8 +33,8 @@
             </li>
             {% endif %}
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <form class="form-inline my-2 my-lg-0" action="{% url 'search_projects' %}">
+            <input id="query" name="query" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-pink my-2 my-sm-0" type="submit">Search</button>
         </form>
     </div>

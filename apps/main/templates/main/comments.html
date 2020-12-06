@@ -1,18 +1,15 @@
 <div class="comments mt-5">
-{% for i in '123456'|make_list %}
-    <hr class="mt-5 mb-5">
+{% for review in reviews %}
+{% if review.comment|length > 0 %}
+<hr class="mt-5 mb-5">
     <div class="comment d-flex">
-        <div class="mr-3" style="min-width: 30px; height: 30px; background: grey; border-radius: 100%;">
+        <div class="mr-3" style="min-width: 30px; height: 30px; background: url({{review.user.profile_pic}}); background-size: cover; border-radius: 100%;">
         </div>
         <div class="text-justify">
-            <span class='username font-weight-bold'>username</span>
-            <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna
-                aliqua. Porta lorem mollis aliquam ut porttitor leo a diam. Porttitor eget dolor morbi non. Duis
-                convallis
-                convallis
-                tellus id interdum velit laoreet id donec.</span>
+            <span class='username font-weight-bold'>{{review.user.username}}</span>
+            <span>{{review.comment}}</span>
         </div>
     </div>
+{% endif %}
 {% endfor %}
 </div>
