@@ -10,7 +10,6 @@ urlpatterns = [
     path('profile/<str:username>/', views.profile, name='profile'),
     path('auth/login/', views.loginUser, name='login'),
     path('auth/signup/', views.signup, name='signup'),
-    path('auth/confirm-account/', views.confirm_account, name='confirm-account'),
     path('auth/logout/', views.log_out, name='logout'),
     path('activation/<uid>/<token>/', views.activate_account, name='activation'),
 ]

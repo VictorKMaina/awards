@@ -49,6 +49,10 @@ def single_project(request, project_id):
             headers = {"Authorization":f"Token {token}"}
             data = requests.post(url, review, headers=headers)
 
+            average_review = review_average(project)
+            ctx = {"project":project, "average_review":average_review, "form":form, "reviews":reviews}
+            return render(request, 'main/single_project.html', ctx)
+
     form = ReviewForm()
     ctx = {"project":project, "average_review":average_review, "form":form, "reviews":reviews}
     return render(request, 'main/single_project.html', ctx)
@@ -95,23 +99,28 @@ def profile(request, username):
 
 # Authentication Views
 def loginUser(request):
-    errors = []
     if request.method == 'POST':
         form = LoginForm(request.POST)
         username = form.data.get('username')
         password = form.data.get('password')
         user = User.objects.filter(username = username).first()
-        if user is not None:
+        if user is not None and user.is_active:
             if user.check_password(password):
                 url = "http://"+str(get_current_site(request)) + "/api/users/auth-token/"
                 requests.post(url, form.data)
                 login(request, user)
                 return redirect('/')
+            else:
+                errors = "Incorrect username or password."
+                ctx = {"form": form, "errors": errors}
+                return render(request, 'auth/login.html', ctx)
         else:
-            errors.append("Incorrect username or password.")
+            errors = "Incorrect username or password."
+            ctx = {"form": form, "errors": errors}
+            return render(request, 'auth/login.html', ctx)
 
     form = LoginForm()
-    ctx = {"form": form, "errors": errors}
+    ctx = {"form": form}
     return render(request, 'auth/login.html', ctx)
 
 
@@ -135,14 +144,6 @@ def signup(request):
     return render(request, 'auth/signup.html', ctx)
 
 
-def confirm_account(request):
-    """
-    View that prompts user to check their mailbox for confirmation email. Redirects to login page.
-    """
-    ctx = {}
-    return render(request, 'main/confirm_account.html', ctx)
-
-
 def activate_account(request, uid, token):
     User = get_user_model()
     try:
@@ -154,10 +155,9 @@ def activate_account(request, uid, token):
     if user is not None and activation_token.check_token(user, token):
         user.is_active = True
         user.save()
-        login(request, user)
-        return redirect('/')
+        return redirect('/auth/login/')
     else:
-        return HttpResponse('nothing found')
+        return redirect('/auth/signup/')
 
 
 @login_required(login_url='auth/login/')

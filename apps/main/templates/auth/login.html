@@ -8,14 +8,16 @@
     <div class="mb-5">
         <div class="small text-muted font-weight-bold text-uppercase mb-3">{{field.label}}</div>
         <div>{{field}}</div>
-        <div class="field-errors">{{field.errors}}</div>
     </div>
     {% endfor %}
     <div class="my-3">
-        {% for error in errors %}
-        <div class="alert-danger my-3 p-3">{{error|capfirst}}</div>
-        {% endfor %}
+        {% if errors %}
+        <div class="alert-danger my-3 p-3">{{errors|capfirst}}</div>
+        {% endif %}
     </div>
     <button type="submit" class="btn btn-pink w-100">Submit</button>
+    <div class="font-weight-bold text-center text-muted mt-4">
+        Don't have an account? <a href="/auth/signup/">Sign Up</a>
+    </div>
 </form>
 {% endblock %}
