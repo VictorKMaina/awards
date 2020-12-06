@@ -1,0 +1,21 @@
+{% extends 'auth/base.html' %}
+
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+    <h2 class="font-weight-bold mb-5 mt-5 text-center">Sign Up</h2>
+    {% for field in form %}
+    <div class="mb-5">
+        <div class="small text-muted font-weight-bold text-uppercase mb-3">{{field.label}}</div>
+        <div>{{field}}</div>
+        <div class="field-errors">{{field.errors}}</div>
+    </div>
+    {% endfor %}
+    <div class="my-3">
+        {% for error in errors %}
+        <div class="alert-danger my-3 p-3">{{error|capfirst}}</div>
+        {% endfor %}
+    </div>
+    <button type="submit" class="btn btn-pink w-100">Submit</button>
+</form>
+{% endblock %}

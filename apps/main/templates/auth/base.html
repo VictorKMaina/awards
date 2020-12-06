@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>{% load bootstrap4 %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% if title %}
+    <title>Awards - {{title}}</title>
+    {% else %}
+    <title>Awards</title>
+    {% endif %}
+
+    {% block styles %}
+    {% bootstrap_css %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+    div.page-container{
+        padding: 50px;
+        margin: 30px auto;
+        border: 1px solid #e8e8e8;
+        border-radius: 10px;
+        width: 100%;
+        max-width: 700px; 
+    }
+    #logo {
+        margin: auto;
+        max-width: 150px;
+    }
+
+    </style>
+    {% endblock styles %}
+
+</head>
+
+<body>
+    <div class="page-container">
+    <div class='w-100 d-flex justify-content-center'>
+        <img src="{% static 'images/logo.png' %}" id="logo" alt="">
+    </div>
+        {% block content %}
+        {% endblock content %}
+    </div>
+
+    {% block scripts %}
+    {% bootstrap_javascript jquery='full'%}
+    {% endblock scripts %}
+</body>
+
+</html>

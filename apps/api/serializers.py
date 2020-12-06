@@ -7,7 +7,7 @@ class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
     class Meta:
         model = User
-        fields='__all__'
+        exclude=['groups', 'user_permissions']
 
     def create(self, validated_data):
         password = validated_data.get('password')
