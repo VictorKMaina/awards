@@ -11,8 +11,14 @@ from .forms import NewProjectForm, SignupForm, LoginForm
 import requests
 from django.contrib.sites.shortcuts import get_current_site
 
+User = get_user_model()
+
+def get_token():
+    requests.post
 
 def index(request):
+    user = request.user
+    
     ctx = {}
     return render(request, 'main/index.html', ctx)
 
@@ -40,24 +46,23 @@ def profile(request):
 
 
 # Authentication Views
-def login(request):
+def loginUser(request):
     errors = []
     if request.method == 'POST':
         form = LoginForm(request.POST)
-        url = "http://"+str(get_current_site(request)) + "/api/users/"
-        data = requests.post(url, form.data)
-        response = json.loads(data.content)
-        user_id = response.get('id')
-        if user_id is not None:
-            return redirect("/auth/login")
-        else:
-            if response.get('username'):
-                errors.append(response.get('username')[0])
-            if response.get('email'):
-                errors.append(response.get('email')[0])
+        username = form.data.get('username')
+        password = form.data.get('password')
+        user = User.objects.filter(username = username).first()
+        if user is not None:
+            if user.check_password(password):
+                login(request, user)
+                return redirect('/')
+            else:
+                errors.append("Incorrect username or password.")
+
     form = LoginForm()
     ctx = {"form": form, "errors": errors}
-    return render(request, 'auth/signup.html', ctx)
+    return render(request, 'auth/login.html', ctx)
 
 
 def signup(request):
@@ -99,7 +104,7 @@ def activate_account(request, uid, token):
     if user is not None and activation_token.check_token(user, token):
         user.is_active = True
         user.save()
-        login(request, user)
+        login(request)
         return HttpResponse('something found')
     else:
         return HttpResponse('nothing found')
@@ -107,4 +112,4 @@ def activate_account(request, uid, token):
 
 def log_out(request):
     logout(request)
-    return HttpResponse('logged out')
+    return redirect('/')
