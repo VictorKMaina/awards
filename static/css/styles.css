@@ -79,6 +79,17 @@ input.form-control, textarea.form-control{
     font-weight: 600;
     background: white;
 }
+.btn-dark {
+    font-weight: 600;
+    color: white;
+    background: #282828;
+}
+.btn-dark:hover {
+    color: white;
+    font-weight: 600;
+    background: #5a5a5a;
+}
+
 
 .title {
         font-size: 1.1rem;

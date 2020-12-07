@@ -10,6 +10,8 @@ def addClass(fields):
     for field in fields:
         if field == 'site_url':
             dicts.append({field: forms.URLInput(attrs={'class': 'form-control'})})
+        if field == 'password':
+            dicts.append({field: forms.PasswordInput(attrs={'class': 'form-control'})})
         elif field != 'description':
             dicts.append({field: forms.TextInput(attrs={'class': 'form-control'})})
         else:

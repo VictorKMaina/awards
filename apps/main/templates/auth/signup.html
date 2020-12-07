@@ -16,7 +16,12 @@
         <div class="alert-danger my-3 p-3">{{error|capfirst}}</div>
         {% endfor %}
     </div>
-    <button type="submit" class="btn btn-pink w-100">Submit</button>
+    <div class="d-flex justify-content-between">
+        <a href="/">
+            <button type="button" class="btn btn-dark mr-3">Home</button>
+        </a>
+        <button type="submit" class="btn btn-pink flex-fill">Submit</button>
+    </div>
     <div class="font-weight-bold text-center text-muted mt-4">
         Already have an account? <a href="/auth/login/">Log In</a>
     </div>
