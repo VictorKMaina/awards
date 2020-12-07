@@ -1,11 +1,11 @@
 # ![Awards Logo](static/images/logox2.png)
 ### By Victor K. Maina
-## [See it on Heroku]()
+## [See it on Heroku](https://dev-awards-ip.herokuapp.com/)
 ---
 
 This project is an Awwwards clone built with Django. The app allows users to rate developer's websites based on design, usability, and content. Developers can also post new projects on the app.
 
-A running version of this app already deployed on Heroku. [Click here]() to use it.
+A running version of this app already deployed on Heroku. [Click here](https://dev-awards-ip.herokuapp.com/) to use it.
 
 ## Installation
 
@@ -122,6 +122,6 @@ python managy.py runserver
 
 1. [ER Diagram | Google Drive](https://drive.google.com/file/d/1Zy8Uy7HDKKdiol4ryDMCAEBP7PEjcXi0/view?usp=sharing)
 2. [Wireframe | Figma](https://www.figma.com/file/Ge25KBxsd1V9fxfIC4fwLW/Awards?node-id=0%3A1)
-3. [Awards | Deployed on Heroku]()
+3. [Awards | Deployed on Heroku](https://dev-awards-ip.herokuapp.com/)
 
 ### [LICENSE](/LICENSE)
